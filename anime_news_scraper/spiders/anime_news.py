@@ -61,15 +61,15 @@ class AnimeNewsSpider(scrapy.Spider):
         )
         intro_list = response.css("div.text-zone div.intro *::text").getall()
         intro = "".join([text.strip() for text in intro_list])
-        content_list = response.css("div.text-zone div.meat *::text").getall()
-        content = " ".join([text.strip() for text in content_list])
-
+        content_html = response.css("div.text-zone div.meat").get()
+        # content = " ".join([text.strip() for text in content_list])
+        # print(content_html)
         items = {
             "title": title,
             "time": time,
             "post_by": post_by,
             "intro": intro,
-            "content": content,
+            "content": content_html,
         }
         yield items
 
